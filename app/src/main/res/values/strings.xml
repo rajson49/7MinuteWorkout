@@ -4,5 +4,7 @@
 
     <string name="str_start">START</string>
     <string name="exersiceImage">Excersice Image</string>
+    <string name="congo_message">congratulations  you finish \n your today exercise.</string>
+    <string name="quite_Text">This will stop your workout are you sure? You want to quite?</string>
 
 </resources>

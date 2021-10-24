@@ -1,5 +1,7 @@
 package com.example.a7minuteworkout
 
+import android.app.Dialog
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,11 +11,14 @@ import android.service.autofill.VisibilitySetterAction
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.a7minuteworkout.adapters.ExersiceAdapter
 import kotlinx.android.synthetic.main.activity_exersice.*
+import kotlinx.android.synthetic.main.dialog_custom_back_confirmation.*
 import java.lang.Exception
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.log
 
 class ExersiceActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
@@ -24,13 +29,14 @@ class ExersiceActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
     private var exersiceTimer:CountDownTimer?=null
     private var exersiceProgress = 0
 
-    private var exersiceDuration:Long=10
+    private var exersiceDuration:Long=30
 
     private var exersiceList:ArrayList<ExersiceModel>?=null
     private var currentExersicePosition=-1
     private var player:MediaPlayer?=null
 
     private var tts:TextToSpeech?=null
+    private var excerciseAdapter: ExersiceAdapter?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +45,20 @@ class ExersiceActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
         setSupportActionBar(toolbar_exersice_activity)
 
         val actionbar=supportActionBar
+
         if (actionbar!=null){
             actionbar.setDisplayHomeAsUpEnabled(true)
         }
 
         toolbar_exersice_activity.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogForBackButton()
         }
 
         tts= TextToSpeech(this,this)
         exersiceList=Constacts.defualtExcersiceList()
         setupRestView()
+
+        setupExerciseStatusRecyclerView()
     }
 
     override fun onDestroy() {
@@ -87,10 +96,15 @@ class ExersiceActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
 
             }
             override fun onFinish() {
-                Toast.makeText(this@ExersiceActivity,"Here now we will start the exersice"
-                ,Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ExersiceActivity,"Here now we will start the exersice"
+                //,Toast.LENGTH_SHORT).show()
+
+
                 currentExersicePosition++
+                exersiceList!![currentExersicePosition].setSelected(true)
+                excerciseAdapter!!.notifyDataSetChanged()
                 setupExcersiceView()
+
             }
 
         }.start()
@@ -109,15 +123,23 @@ class ExersiceActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
                     Toast.makeText(this@ExersiceActivity,"finish",Toast.LENGTH_SHORT).show()
 
                 if(currentExersicePosition<(exersiceList!!.size-1)){
+                    exersiceList!![currentExersicePosition].setSelected(false)
+                    exersiceList!![currentExersicePosition].setCompleted(true)
+                    excerciseAdapter!!.notifyDataSetChanged()
                     setupRestView()
                 }else{
-                    Toast.makeText(this@ExersiceActivity,"finish",Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this@ExersiceActivity,"finish",Toast.LENGTH_SHORT).show()
+                    finish()
+                    val intent= Intent(this@ExersiceActivity,FinishActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }.start()
     }
 
     private fun setupRestView(){
+
+
 
         try {
             player=MediaPlayer.create(applicationContext,R.raw.press_start)
@@ -177,4 +199,33 @@ class ExersiceActivity : AppCompatActivity() , TextToSpeech.OnInitListener{
         tts!!.speak(text,TextToSpeech.QUEUE_FLUSH,null)
     }
 
+    private fun setupExerciseStatusRecyclerView(){
+        rvExerciseStatus.layoutManager=
+            LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        excerciseAdapter=ExersiceAdapter(exersiceList!!,this)
+        rvExerciseStatus.adapter=excerciseAdapter
+    }
+
+    private fun customDialogForBackButton(){
+        val customDialog= Dialog(this)
+
+        customDialog.setContentView(R.layout.dialog_custom_back_confirmation)
+
+        customDialog.tvYes.setOnClickListener(
+            View.OnClickListener {
+                customDialog.dismiss()
+                finish()
+            }
+        )
+
+
+        customDialog.tvNo.setOnClickListener(
+            View.OnClickListener {
+                customDialog.dismiss()
+            }
+        )
+        customDialog.show()
+    }
+
 }
+

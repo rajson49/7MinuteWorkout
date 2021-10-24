@@ -25,7 +25,7 @@ class Constacts {
 
             exersiceList.add(wallSit)
 
-            val pushUp=ExersiceModel(4,
+            val pushUp=ExersiceModel(3,
                 "Push Up",
                 R.drawable.ic_push_up,
                 false,
@@ -33,7 +33,7 @@ class Constacts {
 
             exersiceList.add(pushUp)
 
-            val abdominalCrunch=ExersiceModel(3,
+            val abdominalCrunch=ExersiceModel(4,
                 "Abdominal Crunch",
                 R.drawable.ic_abdominal_crunch,
                 false,
@@ -81,7 +81,7 @@ class Constacts {
 
             exersiceList.add(lunges)
 
-            val pushUpAndRotation=ExersiceModel(11,
+            val pushUpAndRotation=ExersiceModel(10,
                 "Push Up and Rotation",
                 R.drawable.ic_jumping_jacks,
                 false,
@@ -90,7 +90,7 @@ class Constacts {
             exersiceList.add(pushUpAndRotation)
 
 
-            val sidePlack=ExersiceModel(12,
+            val sidePlack=ExersiceModel(11,
                 "Side Plank",
                 R.drawable.ic_side_plank,
                 false,

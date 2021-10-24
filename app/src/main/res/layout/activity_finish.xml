@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FinishActivity"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/finishAcivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/tvEnd"
+            android:text="Hello world "
+            android:textSize="35sp"
+            android:textColor="@android:color/holo_green_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:background="@drawable/item_circular_color_accent_border"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="150dp">
+
+        <!-- Here the ic_action_done image in added in drawables folders.-->
+
+        <ImageView
+            android:src="@drawable/ic_baseline_check_24"
+            android:contentDescription="@string/image"
+            android:layout_width="50dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="50dp"
+            android:layout_height="50dp">
+
+        </ImageView>
+
+    </LinearLayout>
+
+    <TextView
+
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/congo_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/finishButton"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="finish "
+        android:background="@android:color/holo_green_dark"
+        android:layout_margin="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Button>
+
+</LinearLayout>

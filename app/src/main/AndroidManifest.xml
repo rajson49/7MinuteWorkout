@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a7minuteworkout">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,12 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.7MinuteWorkout">
         <activity
+            android:name=".FinishActivity"
+            android:exported="false" />
+        <activity
             android:name=".ExersiceActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" >
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
